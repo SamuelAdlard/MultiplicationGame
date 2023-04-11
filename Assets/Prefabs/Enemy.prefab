@@ -127,15 +127,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 8
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 1184320343560419477}
   - component: {fileID: 3213984884998649060}
   - component: {fileID: 6859782004802098792}
+  - component: {fileID: -2823661896522294236}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -202,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 1184320343560419476}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.769, y: 0.5, z: 2.713}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 2, y: 0.5, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1184320343389934689}
@@ -267,7 +268,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184320343560419476}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -288,6 +289,9 @@ MonoBehaviour:
   number1: 0
   number2: 0
   text: {fileID: 1184320343389934702}
+  agent: {fileID: -2823661896522294236}
+  normalEnemy: {fileID: 2100000, guid: b15bc3a8d7b0841428098a5f8bc552d3, type: 2}
+  frozenEnemy: {fileID: 2100000, guid: 46db6c9e55266b14f8158d2c6f5a2f78, type: 2}
 --- !u!54 &6859782004802098792
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -304,3 +308,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!195 &-2823661896522294236
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184320343560419476}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

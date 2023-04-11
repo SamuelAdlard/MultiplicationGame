@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
-    agentHeight: 2
-    agentSlope: 45
+    agentRadius: 1
+    agentHeight: 1
+    agentSlope: 25.1
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: bbdca00777b96f046bfe342357574c00, type: 2}
 --- !u!1 &88721759
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +312,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &358127874
 Transform:
@@ -421,14 +421,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1bfdd03a8e9e34680d2f46d0c26259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2018534000}
   playerPower: 10
   playerText: {fileID: 88721761}
+  normalMaterial: {fileID: 2100000, guid: 330a2e7fb9218504ea61753f3ffbb736, type: 2}
+  gracePeriodMaterial: {fileID: 2100000, guid: 5074a49463008e34ebb45dc162301bb7, type: 2}
   health: 3
   kills: 0
   mistakes: 0
   currentWave: 1
   enemyPrefab: {fileID: 1184320343560419476, guid: e4d95a17e544a6e47a54f7163b7f576e, type: 3}
   enemies: []
+  gracePeriod: 0
 --- !u!4 &549740728
 Transform:
   m_ObjectHideFlags: 0
@@ -1111,7 +1115,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &1392087207
 MeshCollider:
@@ -1209,7 +1213,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1609521776
 Transform:
@@ -1407,7 +1411,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1684474953
 Transform:
@@ -1639,7 +1643,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1801624324
 BoxCollider:
@@ -1733,7 +1737,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1954753735
 Transform:
@@ -1744,7 +1748,7 @@ Transform:
   m_GameObject: {fileID: 1954753734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5.2094474, y: 1.0551854, z: 5.2094474}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1801624327}
@@ -1785,7 +1789,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2018534000}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.7
   m_Height: 2
   m_Direction: 1
@@ -1883,13 +1887,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!54 &2018534007
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1904,7 +1908,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!1 &2098972611
 GameObject:
