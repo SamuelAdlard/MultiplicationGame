@@ -25,12 +25,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
+    //detects player collision
     private void OnTriggerEnter(Collider other)
     {
-        print(other.transform.name);
+        //checks if the collision is with any enemy
         if (other.transform.CompareTag("Enemy"))
         {
+            //tells the manager there was a collision
             manager.PlayerCollisionWithEnemy(other.gameObject.GetComponent<Enemy>());
         }
     }

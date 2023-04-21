@@ -9,7 +9,9 @@ public class Enemy : MonoBehaviour
     public int number1;
     //second number
     public int number2;
-    //Dislay text for the question
+    //total value
+    public int answer;
+    //Dislay text for the answer
     public TextMeshPro text;
     //Navmesh agent 
     public NavMeshAgent agent;
@@ -38,8 +40,11 @@ public class Enemy : MonoBehaviour
     //called just after the enemy is instantiated and all the values have been set
     public void Spawn()
     {
-        //sets the text
-        text.text = $"{number1} × {number2}";
+        //finds answer
+        answer = number1 * number2;
+        //sets the text to the answer
+        text.text = $"{answer}";
+
     }
 
     // Update is called once per frames
@@ -59,12 +64,16 @@ public class Enemy : MonoBehaviour
         agent.speed = 0;
         //sets the frozen material
         gameObject.GetComponent<Renderer>().material = frozenEnemy;
+        //Turns off collider
+        gameObject.GetComponent<Collider>().enabled = false;
         //waits for 2 seconds
         yield return new WaitForSeconds(2);
         //resets speed
         agent.speed = moveSpeed;
         //resets the material
         gameObject.GetComponent<Renderer>().material = normalEnemy;
+        //Turns on collider
+        gameObject.GetComponent<Collider>().enabled = true;
     }
 
 
