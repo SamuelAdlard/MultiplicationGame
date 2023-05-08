@@ -25,6 +25,9 @@ public class Enemy : MonoBehaviour
 
     //records the original speed
     float moveSpeed;
+
+    
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -76,5 +79,10 @@ public class Enemy : MonoBehaviour
         gameObject.GetComponent<Collider>().enabled = true;
     }
 
+    public void OnDestroy()
+    {
+        
+        
+    }
 
 }

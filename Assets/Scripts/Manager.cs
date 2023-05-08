@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using static UnityEngine.ParticleSystem;
+
 public class Manager : MonoBehaviour
 {
     //player object
@@ -63,7 +65,9 @@ public class Manager : MonoBehaviour
     int range = 12;
     //list of times tables the player wants to practice
     public List<int> timesTables = new List<int>();
-         
+
+    //Enemy death Particles
+    public ParticleSystem particles;
 
     private void Start()
     {
@@ -159,6 +163,8 @@ public class Manager : MonoBehaviour
         enemies.Remove(enemy);
         //Destroys the enemy
         Destroy(enemy.gameObject);
+        //Shows enemy death particles
+        Instantiate(particles, enemy.transform.position, Quaternion.identity);
         //Records the kill
         kills++;
         //sets the display text

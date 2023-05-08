@@ -1272,6 +1272,7 @@ MonoBehaviour:
   startNotRandomUI: {fileID: 852511529}
   random: 0
   timesTables: 
+  particles: {fileID: 9017817826168194948, guid: 2d95c81997abdb34eb0b358f9542c0fc, type: 3}
 --- !u!4 &549740728
 Transform:
   m_ObjectHideFlags: 0
