@@ -78,9 +78,11 @@ public class Enemy : MonoBehaviour
         else if(walking)
         {
             animator.SetBool("Walk", true);
+            
         }
         else
         {
+            print("idle");
             animator.SetBool("Idle", true);
         }
         
