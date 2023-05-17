@@ -99,7 +99,7 @@ public class Manager : MonoBehaviour
         
         
         //Creates the enemies for that round the number of enemies is equal to 1 + wave^2
-        for (int i = 0; i < (1 + Mathf.Pow(currentWave, 2)); i++)
+        for (int i = 0; i < (1 + currentWave * 2); i++)
         {
             //Creates new enemy
             Enemy newEnemy = Instantiate(enemyPrefab, new Vector3(20, 0.5f, Random.Range(-10, 10)), Quaternion.identity).GetComponent<Enemy>();
@@ -161,8 +161,8 @@ public class Manager : MonoBehaviour
     {
         //Removes the enemy from the list
         enemies.Remove(enemy);
-        //Destroys the enemy
-        Destroy(enemy.gameObject);
+        //kills the enemy
+        enemy.living = false;
         //Shows enemy death particles
         Instantiate(particles, enemy.transform.position, Quaternion.identity);
         //Records the kill
@@ -172,8 +172,8 @@ public class Manager : MonoBehaviour
         //makes sure there are still enemies left
         if (enemies.Count > 0)
         {
-            //starts the grave period for the player
-            StartGracePeriod();
+            //charges the ranged weapon for the player
+            
             //sets the question for the player, and sets the text to the questiom as well as finding the answer to the question.
             //Which is show below
             playerAnswer = GetPlayerQuestion();

@@ -35,7 +35,11 @@ public class Enemy : MonoBehaviour
     //records the state of the enemy to see if it is walking or not
     bool walking = true;
 
-    
+    //Records whether the enemy is alive or not
+    public bool living = true;
+
+    //The detailed model of the enemy
+    public GameObject model;
 
     // Start is called before the first frame update
     private void Start()
@@ -70,25 +74,61 @@ public class Enemy : MonoBehaviour
     {
         //sets the rotation to always align with the camera
         text.transform.rotation = Quaternion.Euler(90, 0, 0);
-        //plays the character animations
-        if (!manager.alive)
+        //plays the character animations and sets the states of the enemy
+        SetStates();
+    }
+
+    private void SetStates()
+    {
+        
+        if (!living)
         {
-            animator.SetBool("Celebrate", true);
+            //plays death animation
+            animator.SetBool("dead", true);
+            //Turns off the text and the clear shell around the enemy
+            text.enabled = false;
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            //stops the enemy from moving
+            agent.speed = 0;
+            //turns the agent off
+            agent.enabled = false;
+            //turns of collider
+            gameObject.GetComponent<Collider>().enabled = false;
+            //sets the model to the correct height
+            model.transform.localPosition = new Vector3 (0, -1.7f, 0);
         }
-        else if(walking)
+        else if (!manager.alive)
         {
+            //sets the animation to celebrate
+            animator.SetBool("Celebrate", true);
+            //Turns off the text and the clear shell around the enemy
+            text.enabled = false;
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+            //stops the enemy from moving
+            agent.speed = 0;
+        }
+        else if (walking)
+        {
+            //sets the animation state to walk
             animator.SetBool("Walk", true);
-            
+            animator.SetBool("Idle", false);
         }
         else
         {
-            print("idle");
+            
+            //sets the animation state to idle
             animator.SetBool("Idle", true);
+            animator.SetBool("Walk", false);
+        }
+
+        //Makes the enemy walk towards the player
+        if (living)
+        {
+            agent.SetDestination(player.position);
         }
         
-        //Makes the enemy walk towards the player
-        agent.SetDestination(player.position);
     }
+
 
     //freezes the enemy
     public IEnumerator Freeze()
