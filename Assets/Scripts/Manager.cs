@@ -243,6 +243,10 @@ public class Manager : MonoBehaviour
         endScore.text = $"Total Score: {kills + currentWave - mistakes}";
         //Turns the player movement off
         player.GetComponent<PlayerMovement>().enabled = false;
+        //Plays player death animation
+        player.GetComponent<PlayerMovement>().model.GetComponent<Animator>().SetBool("Die", true);
+        //sets player model to the correct heigh for the animation
+        player.GetComponent<PlayerMovement>().model.transform.localPosition = new Vector3(0, -3.11f, 0);
     }
 
 

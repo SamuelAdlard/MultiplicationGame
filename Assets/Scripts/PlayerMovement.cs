@@ -1,7 +1,7 @@
 ﻿
 using System.Runtime.CompilerServices;
 using UnityEngine;
-//hi sam
+
 public class PlayerMovement : MonoBehaviour
 {
     //references the character controller compontent on the player
@@ -14,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
     public Manager manager;
     //The detailed model
     public GameObject model;
+
+    //Stores the interpolation time in order to lerp smoothly between directions
+    float interpolationTime = 0;
+   
 
     void Update()
     {
@@ -31,13 +35,30 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    //sets the correct animation for the player model
     private void SetAnimations(float X, float Z)
     {
-        if (X != 0 || Z != 0)
+        
+        if (X != 0 || Z != 0) //checks if the player is moving
         {
+            //variable to store the target rotation of the player
             float yAxisRotation;
-            yAxisRotation = Mathf.LerpAngle(transform.rotation.eulerAngles.y, Mathf.Atan2(X, Z) * Mathf.Rad2Deg, Time.time);
+            //allows the change in angle to be smooth
+            yAxisRotation = Mathf.LerpAngle(transform.rotation.eulerAngles.y, Mathf.Atan2(X, Z) * Mathf.Rad2Deg, interpolationTime);
+            //Adds time to the interpolation time
+            interpolationTime += 0.1f;
+            //sets the rotation
             model.transform.rotation = Quaternion.Euler(0, yAxisRotation, 0);
+
+            animator.SetBool("Running", true);
+            animator.SetBool("Idle", false);
+
+        }
+        else
+        {
+            interpolationTime = 0;
+            animator.SetBool("Idle", true);
+            animator.SetBool("Running", false);
         }
         
         
