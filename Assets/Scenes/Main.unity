@@ -920,7 +920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &313394919
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1353,6 +1353,7 @@ MonoBehaviour:
   timesTables: 
   particles: {fileID: 9017817826168194948, guid: 2d95c81997abdb34eb0b358f9542c0fc, type: 3}
   weaponCharge: 0
+  playerCamera: {fileID: 0}
 --- !u!4 &549740728
 Transform:
   m_ObjectHideFlags: 0
@@ -4357,7 +4358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1435447958
 RectTransform:
   m_ObjectHideFlags: 0
