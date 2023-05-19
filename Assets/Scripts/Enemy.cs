@@ -80,7 +80,9 @@ public class Enemy : MonoBehaviour
 
     private void SetStates()
     {
-        
+       
+
+
         if (!living)
         {
             //plays death animation
@@ -96,6 +98,7 @@ public class Enemy : MonoBehaviour
             gameObject.GetComponent<Collider>().enabled = false;
             //sets the model to the correct height
             model.transform.localPosition = new Vector3 (0, -1.7f, 0);
+            
         }
         else if (!manager.alive)
         {
@@ -112,6 +115,7 @@ public class Enemy : MonoBehaviour
             //sets the animation state to walk
             animator.SetBool("Walk", true);
             animator.SetBool("Idle", false);
+            
         }
         else
         {
@@ -119,6 +123,7 @@ public class Enemy : MonoBehaviour
             //sets the animation state to idle
             animator.SetBool("Idle", true);
             animator.SetBool("Walk", false);
+           
         }
 
         //Makes the enemy walk towards the player
@@ -136,7 +141,7 @@ public class Enemy : MonoBehaviour
         //Sets the enemy state to not walking
         walking = false;
         
-        print(moveSpeed);
+        
         //stops the agent from moving
         agent.speed = 0;
         //sets the frozen material

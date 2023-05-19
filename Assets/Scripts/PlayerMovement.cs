@@ -39,8 +39,16 @@ public class PlayerMovement : MonoBehaviour
     //sets the correct animation for the player model
     private void SetAnimations(float X, float Z)
     {
-        
-        if (X != 0 || Z != 0) //checks if the player is moving
+        if (manager.usingWeapon)
+        {
+            //plays the firing weapon animation
+            animator.SetBool("Running", false);
+            animator.SetBool("Idle", false);
+            animator.SetBool("Shoot", true);
+            
+            
+        }
+        else if (X != 0 || Z != 0) //checks if the player is moving
         {
             //variable to store the target rotation of the player
             float yAxisRotation;
@@ -50,16 +58,20 @@ public class PlayerMovement : MonoBehaviour
             interpolationTime += 0.1f;
             //sets the rotation
             model.transform.rotation = Quaternion.Euler(0, yAxisRotation, 0);
-
+            //plays the running animation
             animator.SetBool("Running", true);
             animator.SetBool("Idle", false);
+            animator.SetBool("Shoot", false);
 
         }
         else
         {
+            //sets the interpolation time back to 0
             interpolationTime = 0;
+            //play the idle animation
             animator.SetBool("Idle", true);
             animator.SetBool("Running", false);
+            animator.SetBool("Shoot", false);
         }
         
         

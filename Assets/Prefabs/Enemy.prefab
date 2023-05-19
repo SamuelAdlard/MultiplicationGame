@@ -31,7 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1184320343560419472}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -206,8 +206,8 @@ Transform:
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1184320343389934689}
   - {fileID: 8390397692316314422}
+  - {fileID: 1184320343389934689}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -341,7 +341,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
     m_TransformParent: {fileID: 1184320343560419472}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: fc0fdcf29ecdce24a8d6aaec73c1ebfd, type: 3}
@@ -413,7 +412,6 @@ PrefabInstance:
       value: Paladin WProp J Nordstrom@Walking (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: fc0fdcf29ecdce24a8d6aaec73c1ebfd, type: 3}
 --- !u!4 &8390397692316314422 stripped
 Transform:
@@ -434,7 +432,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9168060639161430412}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fc0fdcf29ecdce24a8d6aaec73c1ebfd, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 7d76884f4a6231e439f8a0652f2e8526, type: 3}
   m_Controller: {fileID: 9100000, guid: 2bbe99b9b66d22a4a9d53d79c81e11e9, type: 2}
   m_CullingMode: 2
   m_UpdateMode: 0

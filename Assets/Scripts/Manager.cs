@@ -73,7 +73,10 @@ public class Manager : MonoBehaviour
     public List<int> timesTables = new List<int>();
 
     //Enemy death Particles
-    public ParticleSystem particles;
+    public ParticleSystem deathParticles, magicParticles;
+
+    //Tells the player movement script if the player is firing the weapon
+    public bool usingWeapon = false;
 
     //The charge of the long ranged weapon
     public int weaponCharge = 0;
@@ -93,7 +96,7 @@ public class Manager : MonoBehaviour
         mousePosition.z = 10.0f;
         mousePosition = playerCamera.ScreenToWorldPoint(mousePosition);
         Debug.DrawRay(mousePosition, playerCamera.transform.forward);
-        FireWeapon();
+        CheckWeaponTarget();
     }
 
 
@@ -183,7 +186,7 @@ public class Manager : MonoBehaviour
         //kills the enemy
         enemy.living = false;
         //Shows enemy death particles
-        Instantiate(particles, enemy.transform.position, Quaternion.identity);
+        Instantiate(deathParticles, enemy.transform.position, Quaternion.identity);
         //Records the kill
         kills++;
         //sets the display text
@@ -199,6 +202,8 @@ public class Manager : MonoBehaviour
         }
         else
         {
+            //Charges the ranged weapon
+            ChargeWeapon();
             //starts the countdown for the next wave
             StartCoroutine(CountDown(10));
         }
@@ -314,6 +319,12 @@ public class Manager : MonoBehaviour
             weaponCharge++;
             //updates the text
             chargeDisplay.text = $"Charge: {weaponCharge}/3";
+            //if the weapon charge is equal to 3 after it has been charged the instruction text will be shown
+            if (weaponCharge == 3)
+            {
+                //turns on the instruction text
+                weaponFireInstructionText.gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -324,24 +335,57 @@ public class Manager : MonoBehaviour
     }
 
     //Fires the weapon
-    private void FireWeapon()
+    private void CheckWeaponTarget()
     {
+        //Creates a ray based of the player mouse position
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-        
+        //Stores the hit information of the ray
         RaycastHit hit;
-        if (weaponCharge > 2 && Input.GetKeyDown("e") && Physics.Raycast(ray, out hit)) 
+        //Checks to see if the player has enough charge to fire the weapon, is pressing 'e' and whether the ray will actually hit an object
+        if (weaponCharge > 2 && Input.GetKeyDown("e") && Physics.Raycast(ray, out hit) && alive) 
         {
-            print("E pressed");
+            //Gets the enemy component from the object the ray is hitting
             Enemy enemy = hit.transform.GetComponent<Enemy>();
+            //Makes sure the object is actually and enemy
             if (enemy != null)
             {
-                print("Enemy identified");
-                PlayerCollisionWithEnemy(enemy);
+                //Sets the weapon charge to 0
                 weaponCharge = 0;
+                //Sets the display text to the value of the charge
+                chargeDisplay.text = $"Charge: {weaponCharge}/3";
+                //Turns of the fire instruction text
                 weaponFireInstructionText.gameObject.SetActive(false);
+                //Fires the weapon and plays the animation
+                StartCoroutine(FireWeapon(enemy));
             }
         }
+    }
 
+    private IEnumerator FireWeapon(Enemy enemy)
+    {
+        //sets the usingWeapon variable to true
+        usingWeapon = true;
+        //Starts particle effect
+        magicParticles.Play();
+        //stops the player from moving
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        //makes the player look at the enemy
+        playerMovement.model.transform.LookAt(enemy.transform.position);
+        //original speed of player recorded
+        float initialSpeed = playerMovement.Speed;
+        //sets the player speed to 0
+        playerMovement.Speed = 0;
+        //Waits for 2 seconds
+        yield return new WaitForSeconds(2);
+        //sets the player speed back to normal
+        playerMovement.Speed = initialSpeed;
+        //Stops particle effect
+        magicParticles.Stop();
+        //sets the usingWeapon variable to false
+        usingWeapon = false;
+        //Calls the function that checks if answers are correct
+        PlayerCollisionWithEnemy(enemy);
+        print("fired");
     }
 
     //ends the grave period
