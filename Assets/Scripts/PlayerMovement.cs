@@ -14,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public Manager manager;
     //The detailed model
     public GameObject model;
-
+    //To check if the player is firing the weapon
+    public bool usingWeapon = false;
     //Stores the interpolation time in order to lerp smoothly between directions
     float interpolationTime = 0;
    

@@ -46,7 +46,7 @@ public class Manager : MonoBehaviour
     public bool gracePeriod = false;
 
     //Display texts main UI
-    public TextMeshProUGUI waveCounter, killCounter, mistakeCounter, healthCounter, waveCountDown, chargeDisplay;
+    public TextMeshProUGUI waveCounter, killCounter, mistakeCounter, healthCounter, waveCountDown, chargeDisplay, weaponFireInstructionText;
 
     //Different UI sections
     public GameObject mainUI, endUI, startUI;
@@ -92,6 +92,7 @@ public class Manager : MonoBehaviour
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = 10.0f;
         mousePosition = playerCamera.ScreenToWorldPoint(mousePosition);
+        Debug.DrawRay(mousePosition, playerCamera.transform.forward);
         FireWeapon();
     }
 
@@ -307,10 +308,17 @@ public class Manager : MonoBehaviour
         //makes sure the weapon charge doesn't go above 3
         if (weaponCharge < 3)
         {
+            //turns off the instruction to fire the weapon
+            weaponFireInstructionText.gameObject.SetActive(false);
             //adds one to the charge
             weaponCharge++;
             //updates the text
             chargeDisplay.text = $"Charge: {weaponCharge}/3";
+        }
+        else
+        {
+            //turns on the instruction to fire the weapon
+            weaponFireInstructionText.gameObject.SetActive(true);
         }
         
     }
@@ -320,13 +328,20 @@ public class Manager : MonoBehaviour
     {
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         
-        if (weaponCharge < 2 && Input.GetKeyDown("e")) 
+        RaycastHit hit;
+        if (weaponCharge > 2 && Input.GetKeyDown("e") && Physics.Raycast(ray, out hit)) 
         {
-            //if (Physics.Raycast())
-            //{
-
-            //}
+            print("E pressed");
+            Enemy enemy = hit.transform.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                print("Enemy identified");
+                PlayerCollisionWithEnemy(enemy);
+                weaponCharge = 0;
+                weaponFireInstructionText.gameObject.SetActive(false);
+            }
         }
+
     }
 
     //ends the grave period
