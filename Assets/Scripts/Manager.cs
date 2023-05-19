@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using static UnityEngine.ParticleSystem;
+using Unity.VisualScripting;
 
 public class Manager : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class Manager : MonoBehaviour
     public bool gracePeriod = false;
 
     //Display texts main UI
-    public TextMeshProUGUI waveCounter, killCounter, mistakeCounter, healthCounter, waveCountDown;
+    public TextMeshProUGUI waveCounter, killCounter, mistakeCounter, healthCounter, waveCountDown, chargeDisplay;
 
     //Different UI sections
     public GameObject mainUI, endUI, startUI;
@@ -55,20 +56,31 @@ public class Manager : MonoBehaviour
 
     //start UI variables
     public TextMeshProUGUI startButtonText;
+
     //input fields for range and times tables
     public TMP_InputField startRange, startTimesTables;
+
     //The gameobject holding the not random section of the UI
     public GameObject startNotRandomUI;
+
     //variable that keeps track of whether the player wants random questions 
     public bool random = false;
+
     //Variables to determine the questions presented
     int range = 12;
+
     //list of times tables the player wants to practice
     public List<int> timesTables = new List<int>();
 
     //Enemy death Particles
     public ParticleSystem particles;
 
+    //The charge of the long ranged weapon
+    public int weaponCharge = 0;
+
+    //Camera reference
+    public Camera playerCamera;
+    
     private void Start()
     {
         
@@ -77,8 +89,14 @@ public class Manager : MonoBehaviour
 
     void Update()
     {
-        
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = 10.0f;
+        mousePosition = playerCamera.ScreenToWorldPoint(mousePosition);
+        FireWeapon();
     }
+
+
+
 
     private void StartGameplay()
     {
@@ -173,7 +191,7 @@ public class Manager : MonoBehaviour
         if (enemies.Count > 0)
         {
             //charges the ranged weapon for the player
-            
+            ChargeWeapon();
             //sets the question for the player, and sets the text to the questiom as well as finding the answer to the question.
             //Which is show below
             playerAnswer = GetPlayerQuestion();
@@ -281,6 +299,34 @@ public class Manager : MonoBehaviour
         player.GetComponent<MeshRenderer>().material = gracePeriodMaterial;
         //starts timer to end the grace period
         Invoke("EndGracePeriod", 2.5f);
+    }
+
+    //Charges the long ranged weapon
+    private void ChargeWeapon()
+    {
+        //makes sure the weapon charge doesn't go above 3
+        if (weaponCharge < 3)
+        {
+            //adds one to the charge
+            weaponCharge++;
+            //updates the text
+            chargeDisplay.text = $"Charge: {weaponCharge}/3";
+        }
+        
+    }
+
+    //Fires the weapon
+    private void FireWeapon()
+    {
+        Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+        
+        if (weaponCharge < 2 && Input.GetKeyDown("e")) 
+        {
+            //if (Physics.Raycast())
+            //{
+
+            //}
+        }
     }
 
     //ends the grave period
