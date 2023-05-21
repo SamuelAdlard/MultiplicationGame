@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
         moveSpeed = agent.speed;
 
         //Gives each enemy a random animation speed
-        animator.speed = Random.Range(0.5f, 1);
+        animator.speed = Random.Range(1, 1.5f);
     }
 
 

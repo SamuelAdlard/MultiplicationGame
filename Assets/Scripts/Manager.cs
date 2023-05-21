@@ -73,7 +73,7 @@ public class Manager : MonoBehaviour
     public List<int> timesTables = new List<int>();
 
     //Enemy death Particles
-    public ParticleSystem deathParticles, magicParticles;
+    public ParticleSystem deathParticles, magicParticles, attackParticles, explosionParticles;
 
     //Tells the player movement script if the player is firing the weapon
     public bool usingWeapon = false;
@@ -92,10 +92,7 @@ public class Manager : MonoBehaviour
 
     void Update()
     {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = 10.0f;
-        mousePosition = playerCamera.ScreenToWorldPoint(mousePosition);
-        Debug.DrawRay(mousePosition, playerCamera.transform.forward);
+        //Checks to see if the weapon can be fired every frame
         CheckWeaponTarget();
     }
 
@@ -334,7 +331,7 @@ public class Manager : MonoBehaviour
         
     }
 
-    //Fires the weapon
+    //Checks the if the player can fire the weapon
     private void CheckWeaponTarget()
     {
         //Creates a ray based of the player mouse position
@@ -361,11 +358,13 @@ public class Manager : MonoBehaviour
         }
     }
 
+    
     private IEnumerator FireWeapon(Enemy enemy)
     {
         //sets the usingWeapon variable to true
         usingWeapon = true;
         //Starts particle effect
+        magicParticles.playbackSpeed = 1;
         magicParticles.Play();
         //stops the player from moving
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
@@ -375,11 +374,21 @@ public class Manager : MonoBehaviour
         float initialSpeed = playerMovement.Speed;
         //sets the player speed to 0
         playerMovement.Speed = 0;
+        //Plays the attack particles
+        attackParticles.Play();
         //Waits for 2 seconds
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
+        
+        //makes the particles faster
+        magicParticles.playbackSpeed = 8;
+        yield return new WaitForSeconds(0.5f);
+        //Plays the explosion particles
+        Instantiate(explosionParticles, enemy.transform.position, Quaternion.Euler(0,0,90));
         //sets the player speed back to normal
         playerMovement.Speed = initialSpeed;
         //Stops particle effect
+        attackParticles.Stop();
+        attackParticles.Clear();
         magicParticles.Stop();
         //sets the usingWeapon variable to false
         usingWeapon = false;
