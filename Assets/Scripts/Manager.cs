@@ -64,7 +64,7 @@ public class Manager : MonoBehaviour
     public GameObject startNotRandomUI;
 
     //variable that keeps track of whether the player wants random questions 
-    public bool random = false;
+    public bool random = true;
 
     //Variables to determine the questions presented
     int range = 12;
