@@ -83,6 +83,8 @@ public class Manager : MonoBehaviour
 
     //Camera reference
     public Camera playerCamera;
+
+   
     
     private void Start()
     {
@@ -181,7 +183,7 @@ public class Manager : MonoBehaviour
         //Removes the enemy from the list
         enemies.Remove(enemy);
         //kills the enemy
-        enemy.living = false;
+        enemy.Die();
         //Shows enemy death particles
         Instantiate(deathParticles, enemy.transform.position, Quaternion.identity);
         //Records the kill
@@ -376,12 +378,15 @@ public class Manager : MonoBehaviour
         playerMovement.Speed = 0;
         //Plays the attack particles
         attackParticles.Play();
-        //Waits for 2 seconds
-        yield return new WaitForSeconds(1.5f);
+        
         
         //makes the particles faster
         magicParticles.playbackSpeed = 8;
         yield return new WaitForSeconds(0.5f);
+        //plays the explosion sounds
+        enemy.explosionAudioSource.Play();
+        //Waits for 2 seconds
+        yield return new WaitForSeconds(1.5f);
         //Plays the explosion particles
         Instantiate(explosionParticles, enemy.transform.position, Quaternion.Euler(0,0,90));
         //sets the player speed back to normal

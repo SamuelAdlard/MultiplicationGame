@@ -41,6 +41,9 @@ public class Enemy : MonoBehaviour
     //The detailed model of the enemy
     public GameObject model;
 
+    //Reference to the audio source that plays the death sound
+    public AudioSource deathAudioSource, explosionAudioSource;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -77,6 +80,14 @@ public class Enemy : MonoBehaviour
         //plays the character animations and sets the states of the enemy
         SetStates();
     }
+    
+    public void Die()
+    {
+        living = false;
+        deathAudioSource.Play();
+    }
+
+
 
     private void SetStates()
     {
