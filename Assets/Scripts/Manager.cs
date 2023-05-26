@@ -84,8 +84,10 @@ public class Manager : MonoBehaviour
     //Camera reference
     public Camera playerCamera;
 
-   
-    
+    //Sound of player getting hurt
+    public AudioSource playerOuch;
+
+
     private void Start()
     {
         
@@ -245,6 +247,9 @@ public class Manager : MonoBehaviour
         //sets display text
         healthCounter.text = $"Health: {health}";
 
+        //plays player ouch sound
+        playerOuch.Play();
+
         //freezes the enemy
         enemy.StartCoroutine(enemy.Freeze());
     }
@@ -378,15 +383,19 @@ public class Manager : MonoBehaviour
         playerMovement.Speed = 0;
         //Plays the attack particles
         attackParticles.Play();
-        
-        
-        //makes the particles faster
-        magicParticles.playbackSpeed = 8;
-        yield return new WaitForSeconds(0.5f);
-        //plays the explosion sounds
-        enemy.explosionAudioSource.Play();
+
+
         //Waits for 2 seconds
         yield return new WaitForSeconds(1.5f);
+        //makes the particles faster
+        magicParticles.playbackSpeed = 8;
+        
+        
+        yield return new WaitForSeconds(0.5f);
+
+        //plays the explosion sounds
+        enemy.explosionAudioSource.Play();
+
         //Plays the explosion particles
         Instantiate(explosionParticles, enemy.transform.position, Quaternion.Euler(0,0,90));
         //sets the player speed back to normal
@@ -399,7 +408,7 @@ public class Manager : MonoBehaviour
         usingWeapon = false;
         //Calls the function that checks if answers are correct
         PlayerCollisionWithEnemy(enemy);
-        print("fired");
+        
     }
 
     //ends the grave period

@@ -44,6 +44,8 @@ public class Enemy : MonoBehaviour
     //Reference to the audio source that plays the death sound
     public AudioSource deathAudioSource, explosionAudioSource;
 
+    
+
     // Start is called before the first frame update
     private void Start()
     {
