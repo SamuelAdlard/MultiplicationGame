@@ -18,7 +18,10 @@ public class PlayerMovement : MonoBehaviour
     public bool usingWeapon = false;
     //Stores the interpolation time in order to lerp smoothly between directions
     float interpolationTime = 0;
-   
+    //Audiosource for the feet of the player
+    public AudioSource walkSound;
+    //
+
 
     void Update()
     {
@@ -45,8 +48,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("Running", false);
             animator.SetBool("Idle", false);
             animator.SetBool("Shoot", true);
-            
-            
         }
         else if (X != 0 || Z != 0) //checks if the player is moving
         {
@@ -63,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("Idle", false);
             animator.SetBool("Shoot", false);
 
+            walkSound.Play();
         }
         else
         {
@@ -72,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("Idle", true);
             animator.SetBool("Running", false);
             animator.SetBool("Shoot", false);
+
+            
         }
         
         
