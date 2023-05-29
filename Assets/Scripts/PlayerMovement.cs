@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     float interpolationTime = 0;
     //Audiosource for the feet of the player
     public AudioSource walkSound;
-    //
+    
 
 
     void Update()
@@ -36,7 +36,9 @@ public class PlayerMovement : MonoBehaviour
         Controller.Move(MoveX);
 
         SetAnimations(X, Z);
-
+        //Adds variation to the sound
+        walkSound.volume = Mathf.Clamp((Mathf.Abs(X) + Mathf.Abs(Z)) / 2, 0, 0.15f);
+        
     }
 
     //sets the correct animation for the player model
@@ -48,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("Running", false);
             animator.SetBool("Idle", false);
             animator.SetBool("Shoot", true);
+            //stops the walking sound
+            walkSound.enabled = false;
         }
         else if (X != 0 || Z != 0) //checks if the player is moving
         {
@@ -63,8 +67,9 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("Running", true);
             animator.SetBool("Idle", false);
             animator.SetBool("Shoot", false);
-
-            walkSound.Play();
+            //starts the walking sound
+            walkSound.enabled = true;
+            
         }
         else
         {
@@ -74,7 +79,8 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("Idle", true);
             animator.SetBool("Running", false);
             animator.SetBool("Shoot", false);
-
+            //stops the walking sound
+            walkSound.enabled = false;
             
         }
         
